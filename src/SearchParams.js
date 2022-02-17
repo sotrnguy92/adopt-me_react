@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
-import { Pet } from "./Pet";
+import { useBreedList } from "./useBreedList";
+import {Results} from "./Results"
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 export const SearchParams = () => {
-  const [location, setLocation] = useState("San Jose, CA");
+  const [location, setLocation] = useState("");
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
-
-  const breeds = [];
+  const [breedList] = useBreedList(animal);
 
   useEffect(() => {
     requestPets();
-  },[]);
+  }, []);
 
   const requestPets = async () => {
     const res = await fetch(
@@ -28,7 +28,12 @@ export const SearchParams = () => {
 
   return (
     <div className="search-params">
-      <form action="">
+      <form 
+        onSubmit={e => {
+          e.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           Location
           <input
@@ -63,7 +68,7 @@ export const SearchParams = () => {
             onBlur={(e) => setBreed(e.target.value)}
           >
             <option />
-            {breeds.map((breed) => (
+            {breedList.map((breed) => (
               <option value={breed} key={breed}>
                 {breed}
               </option>
@@ -72,14 +77,7 @@ export const SearchParams = () => {
         </label>
         <button>Submit</button>
       </form>
-      {pets.map((pet) => (
-        <Pet
-          name={pet.name}
-          animal={pet.animal}
-          breed={pet.breed}
-          key={pet.id}
-        />
-      ))}
+      <Results pets={pets}/>
     </div>
   );
 };

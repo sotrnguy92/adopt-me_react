@@ -7,7 +7,6 @@ export const useBreedList = (animal) => {
   const [status, setStatus] = useState("unloaded");
 
   useEffect(() => {
-     
     if (!animal) {
       setBreedList([]);
     } else if (localCache[animal]) {
@@ -15,22 +14,21 @@ export const useBreedList = (animal) => {
     } else {
       requestBreedList();
     }
-   
   }, [animal]);
 
   const requestBreedList = async () => {
-      setBreedList([]);
-      setStatus("loading");
-    
-      const res = await fetch(
-        `http://pets-v2.dev-apis.com/breeds?animal=${animal}`
-      );
-    
-      const json = await res.json();
-      localCache[animal] = json.breeds || [];
-      setBreedList(localCache[animal]);
-      setStatus("loaded");
-    };
+    setBreedList([]);
+    setStatus("loading");
 
-  return [breedList, status]
+    const res = await fetch(
+      `http://pets-v2.dev-apis.com/breeds?animal=${animal}`
+    );
+
+    const json = await res.json();
+    localCache[animal] = json.breeds || [];
+    setBreedList(localCache[animal]);
+    setStatus("loaded");
+  };
+
+  return [breedList, status];
 };

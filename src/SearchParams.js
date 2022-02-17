@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useBreedList } from "./useBreedList";
-import {Results} from "./Results"
+import { Results } from "./Results";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
@@ -28,8 +28,8 @@ export const SearchParams = () => {
 
   return (
     <div className="search-params">
-      <form 
-        onSubmit={e => {
+      <form
+        onSubmit={(e) => {
           e.preventDefault();
           requestPets();
         }}
@@ -77,7 +77,7 @@ export const SearchParams = () => {
         </label>
         <button>Submit</button>
       </form>
-      <Results pets={pets}/>
+      <Results pets={pets} />
     </div>
   );
 };

@@ -4,7 +4,6 @@ import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 
 class Details extends Component {
-
   state = { loading: true };
 
   async componentDidMount() {
@@ -14,21 +13,22 @@ class Details extends Component {
     const json = await res.json();
     this.setState(
       Object.assign(
-      {
-        loading: false,
-      },
-      json.pets[0]
-    )
+        {
+          loading: false,
+        },
+        json.pets[0]
+      )
     );
   }
 
   render() {
-    if(this.state.loading) return <h2>loading...</h2>
-    const {animal, breed, city, state, description, name, images} = this.state
+    if (this.state.loading) return <h2>loading...</h2>;
+    const { animal, breed, city, state, description, name, images } =
+      this.state;
 
     return (
       <div className="details">
-        <Carousel images = {images}/>
+        <Carousel images={images} />
         <div>
           <h1>{name}</h1>
           <h2>{`${animal} - ${breed} - ${city}, ${state}`}</h2>
@@ -36,16 +36,16 @@ class Details extends Component {
           <p>{description}</p>
         </div>
       </div>
-    )
+    );
   }
 }
 
 const DetailsWithRouter = withRouter(Details);
 
-export default function DetailsWithErrorBoundary(){
+export default function DetailsWithErrorBoundary() {
   return (
     <ErrorBoundary>
-      <DetailsWithRouter/> 
-    </ErrorBoundary>  
-  )
+      <DetailsWithRouter />
+    </ErrorBoundary>
+  );
 }

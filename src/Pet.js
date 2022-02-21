@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/namespace,import/named
 import { Link } from "react-router-dom";
 
 export const Pet = ({ name, animal, breed, images, location, id }) => {
